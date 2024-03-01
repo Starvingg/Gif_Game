@@ -10,8 +10,6 @@ const hostStartGameButton = document.querySelector('#startGameButton');
 
 const readyButton = document.querySelector('#readyButton'); 
 
-
-
 document.querySelector('.formSubmission').addEventListener('submit', function(event) {
     event.preventDefault();
     const selectElement = document.getElementById('playerSelect');
@@ -56,7 +54,6 @@ const requestAnswers = async () => {
     updatePlayer3Button(p3Input);
 }
 
-
 function updatePlayer1Button(text) {
     document.getElementById('player1Caption').innerHTML = text;
 }
@@ -68,12 +65,6 @@ function updatePlayer2Button(text) {
 function updatePlayer3Button(text) {
     document.getElementById('player3Caption').innerHTML = text;
 }
-
-
-
-
-
-
 
 const playerReady = async (player) => {
     try {
@@ -99,7 +90,6 @@ function displayGifRound1(localPlayerObject) {
     iframeRound1.src = gif1URL;
 }
 
-
 const updateResults = async (id) => { //this updates the player input API on submit
     try {
         let infoArr = await clientCache.fetchCache();
@@ -116,8 +106,6 @@ const updateResults = async (id) => { //this updates the player input API on sub
         console.error(error); 
     }
 }
-
-
 
 const gifRefresh = async () => {
     try {
@@ -172,9 +160,6 @@ const displayCaptions = () => {  ///currently not called anywhere
     displayResults.appendChild(pTag3);
 }
 
-
-
-
 hostStartGameButton.addEventListener('click', () => {
     gifRefresh()
     // Needs to write to API
@@ -184,136 +169,3 @@ readyButton.addEventListener('click', () => {
     playerReady()
     // Needs to read
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-/// - Things to reset at end of game
-/// - Round counter
-/// - Player Data Object
-/// -
-////////// */
-
-// GAME FLOW //
-
-// Player 1 
-    // Start Game
-        // gifRefresh
-
-// Player 2
-    // Ready - // PlayerObject will be saved locally
-    // Click "NEXT" Button
-
-
-// Player 3
-    // Ready - // PlayerObject will be saved locally
-    // Click "NEXT" Button
-
-
-// Player 1 
-    // Ready - // PlayerObject will be saved locally
-    // Click "NEXT" Button
-
-    
-// --- Game Has Started ---
-
-
-// -- Gif Display Rounds start --
-
-// - Round 1
-// Local Logic to ShowGif
-// Local logic to send userCommentInput
-
-// - Round 2
-// Local Logic to ShowGif
-// Local logic to send userCommentInput
-
-// - Round 3
-// Local Logic to ShowGif
-// Local logic to send userCommentInput
-
-// -- Voting Rounds start --
-
-// -- Gif 1 Voting
-    // Pull all userInputs
-    // Send vote
-
-// -- Gif 2 Voting
-    // Pull all userInputs
-    // Send vote
-
-// -- Gif 3 Voting
-    // Pull all userInputs
-    // Send vote
-
-// -- Gif 4 Voting
-    // Pull all userInputs
-    // Send vote
-
-
-
-
-
-
-
-
-
-    // form.addEventListener('submit',  async (event) => {
-//     const dataHandler = new cacheAPI();
-//     event.preventDefault();
-    
-//     //let input1 = captionInput.value;  
-//    // const playerID = playerFormID.value; // When you submit this will be updated locally
-
-//     const cachedData = await dataHandler.fetchCache();
-
-//     let gifURL1 = cachedData[0].round1.gifUrl;
-//     let gifURL2 = cachedData[0].round1.gifUrl;
-//     let gifURL3 = cachedData[0].round1.gifUrl;
-//     let gifURL4 = cachedData[0].round1.gifUrl;
-    
-//     const playerObject = {
-//         round1:{gifUrl: gifURL1, input: input1, score:0},
-//         round2:{gifUrl: gifURL2, input: input2, score:0},
-//         round3:{gifUrl: gifURL3, input: input3, score:0},
-//         round4:{gifUrl: gifURL4, input: input4, score:0},
-//         playerScore:0
-//     };
-    
-//     console.log(playerObject);
-
-//     await clientCache.pushData(playerID, playerObject);
-
-//     console.log('caption1:', input1);
-//     console.log('Player ID:', playerID);
-
-//     clientCache.pushData(playerID, playerObject)
-
-//     form.reset();
-//     updateResults(playerID);
-//     clientCache.fetchCache();
-// });
