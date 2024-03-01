@@ -26,20 +26,29 @@
 class cacheAPI {
 
     constructor() {
-        this.baseURL = `https://corsproxy.io/https://retoolapi.dev/zXytKh/giphy=`;
+        this.baseURL = `https://retoolapi.dev/zXytKh/giphy=`;
+        this.proxyURL = `https://cors-anywhere.herokuapp.com/`;
     }
 
     async fetchCache() {
-        const url = `https://corsproxy.io/https://retoolapi.dev/YbJflP/giphy=`;
-        const response = await axios.get(url);
+        const url = `${this.proxyURL}https://retoolapi.dev/YbJflP/giphy=`;
+        const response = await axios.get(url, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
         const cache = response.data;
         //console.log(cache);
         return cache; 
     }
 
     async pushData(inputID, inputSentence) {
-        const url = `https://corsproxy.io/https://retoolapi.dev/YbJflP/giphy=/${inputID}`;
-        const response = await axios.put(url, { id: inputID, sentence: inputSentence });
+        const url = `${this.proxyURL}https://retoolapi.dev/YbJflP/giphy=/${inputID}`;
+        const response = await axios.put(url, { id: inputID, sentence: inputSentence }, {
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest'
+            }
+        });
         const cache = response.data;
         //console.log(cache);
         return cache; 
