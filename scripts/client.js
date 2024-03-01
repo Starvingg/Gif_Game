@@ -88,6 +88,7 @@ function displayGifRound1(localPlayerObject) {
     console.log(gif1URL);
     const iframeRound1 = document.getElementById('round1Gif');
     iframeRound1.src = gif1URL;
+    
 }
 
 const updateResults = async (id) => { //this updates the player input API on submit
