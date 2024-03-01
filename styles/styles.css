@@ -1,49 +1,138 @@
-html,
 body {
-  padding: 0px;
-  margin: 0px;
-  font-family: Arial, Helvetica, sans-serif;
-  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(
+    to right,
+    #e0eafc,
+    #cfdef3
+  ); /* Light blue gradient */
+  color: #333;
+  line-height: 1.6;
+  padding: 20px;
+  margin: 0;
+  text-align: center; /* Center aligns text and inline elements like images */
 }
 
-.nav {
+nav {
   display: flex;
-  background-color: rgb(61, 59, 59);
-  height: 4vw;
+  background-color: black;
   justify-content: space-between;
-}
-.nav__sub {
-  display: flex;
-  margin-right: 2vw;
-}
-.nav__bar {
-  display: flex;
-  list-style: none;
-  margin-top: 1.5%;
-}
-.nav__bar--logo {
-  color: aliceblue;
-  margin-right: 2vw;
-  text-decoration: none;
-  margin-top: 0px;
-}
-.nav__bar--text {
-  text-decoration: none;
-  color: aliceblue;
-  margin-left: 2vw;
+
+  &__logo {
+    max-width: 100%;
+  }
 }
 
-.hero {
-  width: 100%;
-  height: 40vw;
-  background-color: antiquewhite;
-  margin: 0px;
-  text-align: center;
-}
-.hero__heading {
-  margin: 0px;
+
+header {
+  background-color: #0056b3; /* Updated background color for header/title */
+  color: #ffffff;
+  padding: 20px 0;
+  margin-bottom: 20px;
 }
 
-.results-displayResults {
+header h1 {
+  margin: 0;
+}
+
+.instructions {
+  color: white;
+  width: 200px;
+}
+
+section p {
+  font-weight: bold; /* Makes the instructions bold */
+}
+
+.player-name-container {
+  text-align: center; /* Ensures the label and select dropdown are centered together */
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: bold; /* Makes the label text bold */
+}
+
+select {
+  display: inline-block; /* Adjusted for inline display */
+  max-width: 250px; /* Sets the maximum width of select dropdown */
+  padding: 10px;
+  margin-top: 0.5rem; /* Adds a little space above the select dropdown */
+  font-size: 16px;
+  border: 2px solid #ccc; /* Slight border added */
+  border-radius: 5px;
+  width: 100%; /* Ensures the select dropdown expands to max-width */
+}
+
+.gif {
+  margin-bottom: 20px;
+}
+
+.gif__container {
   border: 2px solid black;
-}/*# sourceMappingURL=styles.css.map */
+  margin: 2px 0;
+}
+
+.player__caption {
+  display: flex;
+  max-width: 50%;
+}
+
+.vote__player {
+  width: 50%;
+}
+
+iframe {
+  width: 300px;
+  height: 300px;
+}
+
+.gif img {
+  max-width: 100%;
+  height: 300px;
+  border-radius: 5px;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  display: block; /* Makes img a block-level element */
+  margin: 0 auto; /* Centers the image */
+  margin-bottom: 0.5rem; /* Adds padding between the GIF and the comment label */
+}
+
+button {
+  background-color: #0056b3; /* Matching the header/title background color */
+  color: #ffffff;
+  padding: 10px 20px;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  display: block; /* Ensure the button is block-level for centering */
+  margin: 20px auto; /* Center the button and add spacing */
+}
+
+.initializeGameButton {
+  background-color: white;
+  color: #0056b3;
+}
+
+button:hover {
+  background-color: #004094; /* Slightly darker shade for hover effect */
+}
+
+.button-style {
+  display: inline-block;
+  background-color: #007bff;
+  color: #ffffff;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.comment-wrapper {
+  display: flex;
+  justify-content: center;
+}
