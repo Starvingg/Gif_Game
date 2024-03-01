@@ -20,21 +20,6 @@ form.addEventListener('submit', (event) => {
     clientCache.fetchCache()
 });
 
-
-// function updateResults ()  {
-//     const displayResults = document.querySelector('.results-displayResults');
-//     displayResults.innerHTML = '';
-
-//     for(let i=0; i< 4; i++){
-//         const pTag = document.createElement('p');
-//         console.log(infoArr);
-//         // pTag.textContent = infoArr[i].sentence;
-//         displayResults.appendChild(pTag);
-
-//     }
-
-// }
-
 const updateResults = async () => {
     try {
         let infoArr = await clientCache.fetchCache();

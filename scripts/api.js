@@ -3,24 +3,24 @@
 // let type = '';
 
 
-// class gifyAPI {
+class gifyAPI {
     
-//     constructor() {
-//         this.baseURL = `https://retoolapi.dev/zXytKh/giphy=`;
-//     }
+    constructor() {
+        this.baseURL = `https://api.giphy.com/v1/gifs/trending?api_key=Yci8EviZ0OXi2u79t2iadTY4Ta1EiZax&limit=15&offset=0&rating=g&bundle=messaging_non_clips`;
+    }
 
-//     async fetchGif() {
-//         const url = `https://retoolapi.dev/zXytKh/giphy=`;
-//         const response = await axios.get(url);
-//         const holidays = response.data;
-//         console.log(holidays);
-//         return holidays; 
-//     }
+    async fetchGif() {
+        const url = `https://api.giphy.com/v1/gifs/trending?api_key=Yci8EviZ0OXi2u79t2iadTY4Ta1EiZax&limit=15&offset=0&rating=g&bundle=messaging_non_clips`;
+        const response = await axios.get(url);
+        const gif = response.data;
+        console.log(gif);
+        return gif; 
+    }
+}
 
 
-// }
-
-// const gifAPI = new gifyAPI();
+const gifAPI = new gifyAPI();
+gifAPI.fetchGif();
 
 
 class cacheAPI {
