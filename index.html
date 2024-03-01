@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,41 +10,100 @@
     <script defer src="./scripts/api.js"></script>
     <script defer src="./scripts/client.js"></script>
 </head>
+
 <body>
-   
+    <header>
+        <nav class="nav">
+            <img class="nav__logo" src="" alt="What The GIF?!" />
+            <button class="instructions"></button>
+        </nav>
+    </header>
+
     <main>
+        <!-- ON PAGE LOAD: Landing for Instructions and Enter Game -->
+        <section class="landing">
+            <h2 class="subheading">Welcome to What The Gif?! The game where you caption GIFs for fun. Enter your name,
+                view the GIFs, and submit your funniest comments.</h2>
+            <button class="landing__instructions">Instructions</button>
+            <button class="landing__enter">Enter Game</button>
+        </section>
+        <!-- Player Registration + Start Game -->
+        <section class="player-register">
+            <form class="formSubmission" action="/submit">
+                <label for="fname">Select Player:</label>
+                <!-- Custom User Name -->
+                <!-- <input type="text" id="fname" name="fname"> -->
+                <select name="player" id="playerFormID">
+                    <option value="1">Player 1</option>
+                    <option value="2">Player 2</option>
+                    <option value="3">Player 3</option>
+                    <option value="4">Player 4</option>
+                </select>
+                <!-- Player Ready Button: !check to convert to button! -->
+                <input type="submit" value="READY!" class="player__ready">
+            </form>
+            <button class="refreshPage">Refresh Page</button>
+            <!-- Player 1 Start Game Button -->
+            <button class="start__game">START GAME</button>
+        </section>
+        <!-- GIF Rounds for User Submissions -->
+        <section class="gif-round">
+            <figure class="gif-round">
+                <img class="gif-round__img" src="" />
+                <input type="text" name="caption" id="caption">
+            </figure>
+        </section>
+        <!-- Player Voting: used for each round -->
+        <section class="vote">
+            <figure class="gif-round">
+                <img class="gif-round__img" src="" />
+                <button class="vote__player1"></button>
+                <button class="vote__player2"></button>
+                <button class="vote__player3"></button>
+                <button class="vote__player4"></button>
+            </figure>
 
-        <h2>Hello World</h2>
-        
-        <form class="formSubmission" action="/submit">
-            <label for="fname">Submit Sentence:</label><br>
-            <input type="text" id="fname" name="fname"><br>
-            <select name="player" id="playerFormID">
-                <option value="1">Player 1</option>
-                <option value="2">Player 2</option>
-                <option value="3">Player 3</option>
-                <option value="4">Player 4</option>
-            </select>
-            <input type="submit" value="Submit">
-          </form> 
-
-          <button class="refreshPage">Refresh Page</button>
-
-          <div class="results">
-            <h3>Results from form below<h3>
-
-            <div class="results-displayResults">
-                <p>Sentence submission</p>
-                <p>Sentence submission</p>
-                <p>Sentence submission</p>
-                <p>Sentence submission</p>
+            <!-- Button will be visible once we cycle through all 3 rounds -->
+            <div class="vote__results">
+                <button class="vote__results-btn">And The Winner Is...</button>
             </div>
-
-          </div>
-
+        </section>
+        <!-- Results For Each Round -->
+        <section class="results">
+            <h3>Results from form below<h3>
+                <!-- Vote Results: used for each round -->
+                <div class="gif-round__card">
+                    <figure class="gif-round">
+                        <img class="gif-round__img" src="" />
+                        <p class="gif-round__winner"></p>
+                    </figure>
+                    <div class="gif-round__points">
+                        <p class="points__player1">Player 1: </p>
+                        <p class="points__player2">Player 2: </p>
+                        <p class="points__player3">Player 3: </p>
+                        <p class="points__player4">Player 4: </p>
+                    </div>
+                </div>
+        </section>
+        <!-- Display Winners -->
+        <section class="results-displayResults">
+        <p>Sentence submission</p>
+            <article class="results__winner-container">
+                <h3 class="results__winner--player"></h3>
+                <h4 class="results__winner">WINNER!!</h4>
+            </article>
+            <article class="results__loser-container">
+                <p class="loser"></p>
+                <p class="loser"></p>
+                <p class="loser"></p>
+            </article>
+        </section>
     </main>
     <footer>
-
+        <img class="nav__logo" src="" alt="What The GIF?!" />
+        <a href="" class="github"></a>
+        <button class="create_game">Start a New Game</button>
     </footer>
 </body>
+
 </html>

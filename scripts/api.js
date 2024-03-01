@@ -1,49 +1,67 @@
-// let country = 'UK';
-// let year = '2024';
-// let type = '';
-
-
-// class gifyAPI {
+// API CENTER //
+class gifyAPI {
     
-//     constructor() {
-//         this.baseURL = `https://retoolapi.dev/zXytKh/giphy=`;
-//     }
+    constructor() {
+        this.baseURL = `https://api.giphy.com/v1/gifs/trending?api_key=Yci8EviZ0OXi2u79t2iadTY4Ta1EiZax&limit=15&offset=0&rating=g&bundle=messaging_non_clips`;
+    }
 
-//     async fetchGif() {
-//         const url = `https://retoolapi.dev/zXytKh/giphy=`;
-//         const response = await axios.get(url);
-//         const holidays = response.data;
-//         console.log(holidays);
-//         return holidays; 
-//     }
+    async fetchGif() {
+        const url = `https://api.giphy.com/v1/gifs/trending?api_key=Yci8EviZ0OXi2u79t2iadTY4Ta1EiZax&limit=4&offset=0&rating=g&bundle=messaging_non_clips`;
+        const response = await axios.get(url);
+        const gif = response.data.data;
+        console.log(gif);
+        return gif; 
+    }
+}
 
 
-// }
+const gifAPI = new gifyAPI();
+gifAPI.fetchGif();
 
-// const gifAPI = new gifyAPI();
-
+/*
+button.addEventListener('click', async () => {
+    const response = await fetch('https://api.example.com/data');
+    const data = await response.json();
+    console.log(data);
+});
+*/
 
 class cacheAPI {
 
     constructor() {
-        this.baseURL = `https://retoolapi.dev/zXytKh/giphy=`;
+        // this.baseURL = `https://retoolapi.dev/zXytKh/giphy=`;  test api
+        this.baseURL = `https://api-generator.retool.com/O5rvPz/gifgame`;
     }
 
     async fetchCache() {
-        const url = `https://retoolapi.dev/YbJflP/giphy=`;
+        const url = `https://api-generator.retool.com/O5rvPz/gifgame`;
         const response = await axios.get(url);
+        const cache = response.data;
+        console.log(cache);
+        return cache; 
+    }
+
+    async pushData(inputID, playerInput) {
+        const url = `https://api-generator.retool.com/O5rvPz/gifgame/${inputID}`;
+        const response = await axios.put(url, { id: inputID, playerInput });
         const cache = response.data;
         //console.log(cache);
         return cache; 
     }
-
-    async pushData(inputID, inputSentence) {
-        const url = `https://retoolapi.dev/YbJflP/giphy=/${inputID}`;
-        const response = await axios.put(url, { id: inputID, sentence: inputSentence });
-        const cache = response.data;
-        //console.log(cache);
-        return cache; 
-    } 
+    
+    async pushGif(object) {
+        console.log("im pushing to API");
+        
+        for (let inputID = 1; inputID <= 4; inputID++) {
+            const url = `https://api-generator.retool.com/O5rvPz/gifgame/${inputID}`;
+            const response = await axios.put(url, object);
+            const appData = response.data;
+            console.log(appData);
+        }
+        console.log("Cache at the end", cache);
+        
+        return appData;  
+    }
 
 }
 
