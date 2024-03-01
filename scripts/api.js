@@ -1,4 +1,4 @@
-// API CENTER //
+
 class gifyAPI {
     
     constructor() {
@@ -14,17 +14,8 @@ class gifyAPI {
     }
 }
 
-
 const gifAPI = new gifyAPI();
 gifAPI.fetchGif();
-
-/*
-button.addEventListener('click', async () => {
-    const response = await fetch('https://api.example.com/data');
-    const data = await response.json();
-    console.log(data);
-});
-*/
 
 class cacheAPI {
 
@@ -43,7 +34,7 @@ class cacheAPI {
 
     async pushData(inputID, playerInput) {
         const url = `https://api-generator.retool.com/O5rvPz/gifgame/${inputID}`;
-        const response = await axios.put(url, { id: inputID, playerInput });
+        const response = await axios.put(url, playerInput );
         const cache = response.data;
         //console.log(cache);
         return cache; 
