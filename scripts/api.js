@@ -22,20 +22,21 @@ gifAPI.fetchGif();
 class cacheAPI {
 
     constructor() {
-        this.baseURL = `https://retoolapi.dev/zXytKh/giphy=`;
+        // this.baseURL = `https://retoolapi.dev/zXytKh/giphy=`;  test api
+        this.baseURL = `https://api-generator.retool.com/O5rvPz/gifgame`;
     }
 
     async fetchCache() {
-        const url = `https://retoolapi.dev/YbJflP/giphy=`;
+        const url = `https://api-generator.retool.com/O5rvPz/gifgame`;
         const response = await axios.get(url);
         const cache = response.data;
         //console.log(cache);
         return cache; 
     }
 
-    async pushData(inputID, inputSentence) {
-        const url = `https://retoolapi.dev/YbJflP/giphy=/${inputID}`;
-        const response = await axios.put(url, { id: inputID, sentence: inputSentence });
+    async pushData(inputID, playerInput) {
+        const url = `https://api-generator.retool.com/O5rvPz/gifgame/${inputID}`;
+        const response = await axios.put(url, { id: inputID, playerInput });
         const cache = response.data;
         //console.log(cache);
         return cache; 
