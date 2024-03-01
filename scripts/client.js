@@ -22,7 +22,7 @@ form.addEventListener('submit',  async (event) => {
 
     //console.log(cachedData);
 
-    let gifURL1 = cachedData.round1;
+    let gifURL1 = cachedData[0].round1;
 
     console.log(gifURL1);
 
