@@ -1,5 +1,6 @@
 
 const clientCache = new cacheAPI();
+const gifApi = new gifyAPI();
 
 const form = document.querySelector('.formSubmission');
 const sentenceInput = document.getElementById('fname');
@@ -47,15 +48,42 @@ const updateResults = async () => {
         pTag3.textContent = Log3;
         displayResults.appendChild(pTag3);
 
-        console.log("Test:, ", clientCache.fetchCache());
+
+                // console.log("Test:, ", clientCache.fetchCache());
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 }
+
+
+const gifRefresh = async () => {
+
+    
+    try {
+        let gifSrc = await gifApi.fetchGif();
+        
+        const displayResults = document.querySelector('.results-displayResults');
+        
+        const iFrame = document.createElement('iframe');
+        iFrame.src = gifSrc;
+        iFrame.className = 'iFrame';
+        displayResults.appendChild(iFrame);
+        
+        console.log("Is this running?", gifSrc);
+    } catch (error) {
+        // console.log(error);
+    }
+}
+
+
+// need to push to cache then re pull before rendering on client
+
 
 const refreshButton = document.querySelector('.refreshPage');
 
 refreshButton.addEventListener('click', () => {
     updateResults();
+    gifRefresh();
+
 });
 

@@ -1,8 +1,4 @@
-// let country = 'UK';
-// let year = '2024';
-// let type = '';
-
-
+// API CENTER //
 class gifyAPI {
     
     constructor() {
@@ -10,9 +6,9 @@ class gifyAPI {
     }
 
     async fetchGif() {
-        const url = `https://api.giphy.com/v1/gifs/trending?api_key=Yci8EviZ0OXi2u79t2iadTY4Ta1EiZax&limit=15&offset=0&rating=g&bundle=messaging_non_clips`;
+        const url = `https://api.giphy.com/v1/gifs/trending?api_key=Yci8EviZ0OXi2u79t2iadTY4Ta1EiZax&limit=1&offset=0&rating=g&bundle=messaging_non_clips`;
         const response = await axios.get(url);
-        const gif = response.data;
+        const gif = response.data.data[0].embed_url;;
         console.log(gif);
         return gif; 
     }
