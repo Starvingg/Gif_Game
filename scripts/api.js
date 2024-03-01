@@ -18,6 +18,13 @@ class gifyAPI {
 const gifAPI = new gifyAPI();
 gifAPI.fetchGif();
 
+/*
+button.addEventListener('click', async () => {
+    const response = await fetch('https://api.example.com/data');
+    const data = await response.json();
+    console.log(data);
+});
+*/
 
 class cacheAPI {
 
@@ -30,7 +37,7 @@ class cacheAPI {
         const url = `https://api-generator.retool.com/O5rvPz/gifgame`;
         const response = await axios.get(url);
         const cache = response.data;
-        //console.log(cache);
+        console.log(cache);
         return cache; 
     }
 
@@ -42,12 +49,18 @@ class cacheAPI {
         return cache; 
     }
     
-    async pushGif(inputID, gif) {
-        const url = `https://api-generator.retool.com/O5rvPz/gifgame/${inputID}`;
-        const response = await axios.put(url, { id: inputID, gif });
-        const cache = response.data;
-        //console.log(cache);
-        return cache; 
+    async pushGif(object) {
+        console.log("im pushing to API");
+        
+        for (let inputID = 1; inputID <= 4; inputID++) {
+            const url = `https://api-generator.retool.com/O5rvPz/gifgame/${inputID}`;
+            const response = await axios.put(url, object);
+            const appData = response.data;
+            console.log(appData);
+        }
+        console.log("Cache at the end", cache);
+        
+        return appData;  
     }
 
 }

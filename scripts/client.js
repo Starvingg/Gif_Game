@@ -6,31 +6,50 @@ const form = document.querySelector('.formSubmission');
 const sentenceInput = document.getElementById('fname');
 const playerFormID = document.getElementById('playerFormID');
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit',  async (event) => {
+    const dataHandler = new cacheAPI();
+    console.log("IS THIS REFRESH");
     event.preventDefault();
 
-    const input1 = sentenceInput.value;
-    const input2 = sentenceInput.value;
-    const input3 = sentenceInput.value;
-    const input4 = sentenceInput.value;
+    // const input1 = sentenceInput.value;
+    // const input2 = sentenceInput.value;
+    // const input3 = sentenceInput.value;
+    // const input4 = sentenceInput.value;
 
-    const playerID = playerFormID.value;
+    // const playerID = playerFormID.value;
 
-    const playerObject = {
-        caption1: input1,
-        caption2: input2,
-        caption3: input3,
-        caption4: input4,
-    };
+    const cachedData = await dataHandler.fetchCache();
 
-    console.log('caption1:', input1);
-    console.log('Player ID:', playerID);
+    //console.log(cachedData);
 
-    clientCache.pushData(playerID, playerObject)
+    let gifURL1 = cachedData.round1;
+
+    console.log(gifURL1);
+
+    // const playerObject = {
+    //     round1:{gifUrl: gifURL1, input:input1, score:0},
+    //     round2:{gifUrl: gif2, input:input2, score:0},
+    //     round3:{gifUrl: gif3, input:input3, score:0},
+    //     round4:{gifUrl: gif4, input:input4, score:0},
+    //     playerScore:0
+    // };
+
+    // How do we access this data after the game starts??
+
+    // player1.playerObject.caption1.score++   ???
+    // player1.playerObject.caption1.score++   ???
+    // player3.playerObject.playerScore++   ???
+
+    // When Voting this should happen -> player1.playerObject.caption1.score++
+
+    // console.log('caption1:', input1);
+    // console.log('Player ID:', playerID);
+
+    //clientCache.pushData(playerID, playerObject)
 
     form.reset();
-    updateResults(playerID);
-    clientCache.fetchCache();
+    //updateResults(playerID);
+    //clientCache.fetchCache();
 });
 
 const updateResults = async (id) => { //this updates the player input API on submit
@@ -80,15 +99,22 @@ const gifRefresh = async () => {
     try {
         let gifSrc = await gifApi.fetchGif();
 
-        
-        const gifObject = {
-            gif1: gifSrc[0].embed_url,
-            gif2: gifSrc[1].embed_url,
-            gif3: gifSrc[2].embed_url,
-            gif4: gifSrc[3].embed_url,
+        let gif1 = gifSrc[0].embed_url;
+        let gif2 = gifSrc[1].embed_url;
+        let gif3 = gifSrc[2].embed_url;
+        let gif4 = gifSrc[3].embed_url;
+
+
+        const playerObject = {
+            round1:{gifUrl: gif1, input:"", score:0},
+            round2:{gifUrl: gif2, input:"", score:0},
+            round3:{gifUrl: gif3, input:"", score:0},
+            round4:{gifUrl: gif4, input:"", score:0},
         };
-        
-        console.log(gifObject);
+
+        console.log("im here");
+        await clientCache.pushGif(playerObject);
+        console.log("upload complete");
         
         // needs its own function (generateGif())
             //const displayResults = document.querySelector('.results-displayResults');
@@ -111,5 +137,9 @@ const refreshButton = document.querySelector('.refreshPage');
 
 refreshButton.addEventListener('click', () => {
     gifRefresh()
+
+    // setTimeout(() => {
+    //    clientCache.fetchCache();
+    // }, 5000);
 });
 
