@@ -3,49 +3,52 @@ const clientCache = new cacheAPI();
 const gifApi = new gifyAPI();
 
 const form = document.querySelector('.formSubmission');
-const sentenceInput = document.getElementById('fname');
+const captionInput = document.getElementById('fname');
 const playerFormID = document.getElementById('playerFormID');
 
+// Listen for dropDown - Get player ID
+// Listen for input Caption/Player input
+    // Need to listen from round to
+
+// Locally  Stored Variables
+let currentRound = 0;
+
+
+
+
 form.addEventListener('submit',  async (event) => {
+
     const dataHandler = new cacheAPI();
     console.log("IS THIS REFRESH");
     event.preventDefault();
-
-    // const input1 = sentenceInput.value;
-    // const input2 = sentenceInput.value;
-    // const input3 = sentenceInput.value;
-    // const input4 = sentenceInput.value;
-
-    // const playerID = playerFormID.value;
+    currentRound++;
+    console.log(currentRound);
+    
+    let input1 = captionInput.value;  
+    const playerID = playerFormID.value; // When you submit this will be updated locally
 
     const cachedData = await dataHandler.fetchCache();
 
-    //console.log(cachedData);
-
-    let gifURL1 = cachedData[0].round1;
+    let gifURL1 = cachedData[0].round1.gifUrl;
+    let gifURL2 = cachedData[0].round1.gifUrl;
+    let gifURL3 = cachedData[0].round1.gifUrl;
+    let gifURL4 = cachedData[0].round1.gifUrl;
 
     console.log(gifURL1);
+    
+    const playerObject = {
+        round1:{gifUrl: gifURL1, input: input1, score:0},
+        round2:{gifUrl: gifURL2, input: input2, score:0},
+        round3:{gifUrl: gifURL3, input: input3, score:0},
+        round4:{gifUrl: gifURL4, input: input4, score:0},
+        playerScore:0
+    };
+    
+    console.log(playerObject);
+    console.log('caption1:', input1);
+    console.log('Player ID:', playerID);
 
-    // const playerObject = {
-    //     round1:{gifUrl: gifURL1, input:input1, score:0},
-    //     round2:{gifUrl: gif2, input:input2, score:0},
-    //     round3:{gifUrl: gif3, input:input3, score:0},
-    //     round4:{gifUrl: gif4, input:input4, score:0},
-    //     playerScore:0
-    // };
-
-    // How do we access this data after the game starts??
-
-    // player1.playerObject.caption1.score++   ???
-    // player1.playerObject.caption1.score++   ???
-    // player3.playerObject.playerScore++   ???
-
-    // When Voting this should happen -> player1.playerObject.caption1.score++
-
-    // console.log('caption1:', input1);
-    // console.log('Player ID:', playerID);
-
-    //clientCache.pushData(playerID, playerObject)
+    clientCache.pushData(playerID, playerObject)
 
     form.reset();
     //updateResults(playerID);
@@ -93,6 +96,31 @@ const updateResults = async (id) => { //this updates the player input API on sub
         console.error(error); 
     }
 }
+
+    // let input2 = "What Round";  
+    // let input3 = "What Round";  
+    // let input4 = "What Round";  
+
+  // read input and add to api based on the round
+    // if (currentRound === 1) {
+    //      input1 = sentenceInput.value;      
+    // } else if (currentRound === 2) {
+    //      input2 = sentenceInput.value;
+    // } else if (currentRound === 3) {
+    //      input3 = sentenceInput.value;
+    // } else if (currentRound === 4) {
+    // } else {
+    //     console.log("GAME OVER");
+    //     currentRound = 0;
+    // }
+
+    // At this point
+    // Locally know what player you are
+        // How? - 
+    // Locally know what round you're in
+        // How?
+
+    // 
 
 
 const gifRefresh = async () => {
@@ -143,3 +171,9 @@ refreshButton.addEventListener('click', () => {
     // }, 5000);
 });
 
+/* //////////
+/// - Things to reset at end of game
+/// - Round counter
+/// - Player Data Object
+/// -
+////////// */
