@@ -40,18 +40,18 @@ const updateResults = async (id) => { //this updates the player input API on sub
         displayResults.innerHTML = '';
 
         // pass in the player number -1 to get the index. 
-        let i = id -1;
+        let i = id - 1;
         console.log(i);
 
         // this needs to be moved to a function to display on the voting page.
             let Log0 = infoArr[i].playerInput.caption1;
-            //console.log(Log0);
+            console.log(Log0);
             const pTag0 = document.createElement('p');
             pTag0.textContent = Log0;
             displayResults.appendChild(pTag0);
 
             let Log1 = infoArr[i].playerInput.caption2;
-            //console.log(Log1);
+            console.log(Log1);
             const pTag1 = document.createElement('p');
             pTag1.textContent = Log1;
             displayResults.appendChild(pTag1);
@@ -80,14 +80,24 @@ const gifRefresh = async () => {
     try {
         let gifSrc = await gifApi.fetchGif();
 
-        const displayResults = document.querySelector('.results-displayResults');
+        
+        const gifObject = {
+            gif1: gifSrc[0].embed_url,
+            gif2: gifSrc[1].embed_url,
+            gif3: gifSrc[2].embed_url,
+            gif4: gifSrc[3].embed_url,
+        };
+        
+        console.log(gifObject);
+        
+        // needs its own function (generateGif())
+            //const displayResults = document.querySelector('.results-displayResults');
+            // const iFrame = document.createElement('iframe');
+            // iFrame.src = gifSrc;
+            // iFrame.className = 'iFrame';
+            // displayResults.appendChild(iFrame);
 
-        const iFrame = document.createElement('iframe');
-        iFrame.src = gifSrc;
-        iFrame.className = 'iFrame';
-        displayResults.appendChild(iFrame);
-
-        console.log("Is this running?", gifSrc);
+        //console.log("Is this running?", gifSrc);
     } catch (error) {
         // console.log(error);
     }
@@ -100,6 +110,6 @@ const gifRefresh = async () => {
 const refreshButton = document.querySelector('.refreshPage');
 
 refreshButton.addEventListener('click', () => {
-    updateResults();
+    gifRefresh()
 });
 

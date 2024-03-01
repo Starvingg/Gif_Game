@@ -6,9 +6,9 @@ class gifyAPI {
     }
 
     async fetchGif() {
-        const url = `https://api.giphy.com/v1/gifs/trending?api_key=Yci8EviZ0OXi2u79t2iadTY4Ta1EiZax&limit=1&offset=0&rating=g&bundle=messaging_non_clips`;
+        const url = `https://api.giphy.com/v1/gifs/trending?api_key=Yci8EviZ0OXi2u79t2iadTY4Ta1EiZax&limit=4&offset=0&rating=g&bundle=messaging_non_clips`;
         const response = await axios.get(url);
-        const gif = response.data.data[0].embed_url;;
+        const gif = response.data.data;
         console.log(gif);
         return gif; 
     }
@@ -40,7 +40,15 @@ class cacheAPI {
         const cache = response.data;
         //console.log(cache);
         return cache; 
-    } 
+    }
+    
+    async pushGif(inputID, gif) {
+        const url = `https://api-generator.retool.com/O5rvPz/gifgame/${inputID}`;
+        const response = await axios.put(url, { id: inputID, gif });
+        const cache = response.data;
+        //console.log(cache);
+        return cache; 
+    }
 
 }
 
