@@ -26,11 +26,11 @@
 class cacheAPI {
 
     constructor() {
-        this.baseURL = `https://retoolapi.dev/zXytKh/giphy=`;
+        this.baseURL = `https://corsproxy.io/https://retoolapi.dev/zXytKh/giphy=`;
     }
 
     async fetchCache() {
-        const url = `https://retoolapi.dev/YbJflP/giphy=`;
+        const url = `https://corsproxy.io/https://retoolapi.dev/YbJflP/giphy=`;
         const response = await axios.get(url);
         const cache = response.data;
         //console.log(cache);
@@ -38,7 +38,7 @@ class cacheAPI {
     }
 
     async pushData(inputID, inputSentence) {
-        const url = `https://retoolapi.dev/YbJflP/giphy=/${inputID}`;
+        const url = `https://corsproxy.io/https://retoolapi.dev/YbJflP/giphy=/${inputID}`;
         const response = await axios.put(url, { id: inputID, sentence: inputSentence });
         const cache = response.data;
         //console.log(cache);
