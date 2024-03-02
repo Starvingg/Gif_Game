@@ -3,7 +3,10 @@ const gifApi = new gifyAPI();
 const scoresCache = new ScoresAPI();
 
 let gameActive = false;
-let playerID
+let captionSent = false;
+let voted = false;
+
+let playerID;
 let localPlayerObject = {};
 let scoresJustIn = {};
 let currentRound = 0;
@@ -158,9 +161,12 @@ document.querySelector('.formSubmission').addEventListener('submit', function (e
 
     document.getElementById('round1Form').addEventListener('submit', function (event) {
         event.preventDefault();
-        if (!gameActive) return;
+        if (captionSent) {
+            alert("You can only submit one time!")
+        }
+        if (!gameActive || captionSent) return;
         const inputValue = document.querySelector('input[name="comment1"]').value;
-    
+        captionSent = true;
         console.log(inputValue);
         localPlayerObject.round1.input = inputValue;
         console.log("localPlayerOBJ", localPlayerObject);
@@ -221,6 +227,10 @@ let votesInLocal = {
     player4: 0,
 }
 const voteFav = async (button) => {
+    if (voted) {
+       alert("Only 1 vote per round!") 
+        return
+    }
     pressed1 = button
     pressed2 = button
     pressed3 = button
