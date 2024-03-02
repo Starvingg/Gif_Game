@@ -2,6 +2,7 @@ const clientCache = new cacheAPI();
 const gifApi = new gifyAPI();
 const scoresCache = new ScoresAPI();
 
+let gameActive = false;
 let playerID
 let localPlayerObject = {};
 let scoresJustIn = {};
@@ -17,28 +18,6 @@ const captionInput = document.getElementById('fname');
 const playerFormID = document.getElementById('playerFormID');
 const hostStartGameButton = document.querySelector('#startGameButton');
 const readyButton = document.querySelector('#readyButton');
-
-document.querySelector('.formSubmission').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const selectElement = document.getElementById('playerSelect');
-    const selectedOption = selectElement.options[selectElement.selectedIndex].value;
-    console.log(selectedOption);
-    playerReady(selectedOption);
-});
-
-document.getElementById('round1Form').addEventListener('submit', function (event) {
-    event.preventDefault();
-    const inputValue = document.querySelector('input[name="comment1"]').value;
-
-    console.log(inputValue);
-    localPlayerObject.round1.input = inputValue;
-    console.log("localPlayerOBJ", localPlayerObject);
-
-    submitAPI();
-    setTimeout(() => {
-        requestAnswers();
-    }, 10000);
-});
 
 const submitAPI = async () => {
     playerID = localPlayerObject.id;
@@ -168,43 +147,73 @@ const displayCaptions = () => {  ///currently not called anywhere
     pTag3.textContent = Log3;
     displayResults.appendChild(pTag3);
 }
-
-// Vote Button Event Listener 
-const buttonVotePlayer1 = document.getElementById('player1Vote');
-
-buttonVotePlayer1.addEventListener('click', () => {
-    console.log('Button1 pressed');
-    let pressed1 = true;
-    voteFav(pressed1);
-    console.log(pressed1);
+document.querySelector('.formSubmission').addEventListener('submit', function (event) {
+    event.preventDefault();
+    const selectElement = document.getElementById('playerSelect');
+    const selectedOption = selectElement.options[selectElement.selectedIndex].value;
+    console.log(selectedOption);
+    playerReady(selectedOption);
 });
+    // Game Button Event Listener
 
-const buttonVotePlayer2 = document.getElementById('player2Vote');
+    document.getElementById('round1Form').addEventListener('submit', function (event) {
+        event.preventDefault();
+        if (!gameActive) return;
+        const inputValue = document.querySelector('input[name="comment1"]').value;
+    
+        console.log(inputValue);
+        localPlayerObject.round1.input = inputValue;
+        console.log("localPlayerOBJ", localPlayerObject);
+    
+        submitAPI();
+        setTimeout(() => {
+            requestAnswers();
+        }, 10000);
+    });
 
-buttonVotePlayer2.addEventListener('click', () => {
-    console.log('Button2 pressed');
-    let pressed2 = true;
-    console.log(pressed2);
-    voteFav(pressed2);
-});
 
-const buttonVotePlayer3 = document.getElementById('player3Vote');
+    const buttonVotePlayer1 = document.getElementById('player1Vote');
 
-buttonVotePlayer3.addEventListener('click', () => {
-    console.log('Button3 pressed');
-    let pressed3 = true;
-    console.log(pressed3);
-    voteFav(pressed3);
-});
+    buttonVotePlayer1.addEventListener('click', () => {
+        if (!gameActive) return;
+        console.log('Button1 pressed');
+        let pressed1 = true;
+        voteFav(pressed1);
+        console.log(pressed1);
+    });
+    
+    const buttonVotePlayer2 = document.getElementById('player2Vote');
+    
+    buttonVotePlayer2.addEventListener('click', () => {
+        if (!gameActive) return;
+        console.log('Button2 pressed');
+        let pressed2 = true;
+        console.log(pressed2);
+        voteFav(pressed2);
+    });
+    
+    const buttonVotePlayer3 = document.getElementById('player3Vote');
+    
+    buttonVotePlayer3.addEventListener('click', () => {
+        if (!gameActive) return;
+        console.log('Button3 pressed');
+        let pressed3 = true;
+        console.log(pressed3);
+        voteFav(pressed3);
+    });
+    
+    const buttonVotePlayer4 = document.getElementById('player3Vote');
+    
+    buttonVotePlayer4.addEventListener('click', () => {
+        if (!gameActive) return;
+        console.log('Button4 pressed');
+        let pressed4 = true;
+        console.log(pressed4);
+        voteFav(pressed4);
+    });
 
-const buttonVotePlayer4 = document.getElementById('player3Vote');
 
-buttonVotePlayer4.addEventListener('click', () => {
-    console.log('Button4 pressed');
-    let pressed4 = true;
-    console.log(pressed4);
-    voteFav(pressed4);
-});
+
 let votesInLocal = {
     player1: 0,
     player2: 0,
@@ -245,6 +254,12 @@ const sendVoteApi = async () => {
     await scoresCache.editScores(pID, allVotes);
     scoresJustIn = await scoresCache.fetchScores();
     console.log("scores are in", scoresJustIn);
+
+    //move onto round 2 from here.
+    // setTimeout(() => {
+    //     startRound2() //needs creating
+    // }, timeout);
+    alert("Votes Closing Soon, Do not go anywhere!")
 }
 
 hostStartGameButton.addEventListener('click', (event) => {
@@ -253,5 +268,7 @@ hostStartGameButton.addEventListener('click', (event) => {
 
 readyButton.addEventListener('click', (event) => {
     playerReady()
+    gameActive = true;
+    console.log(gameActive);
     console.log("Local OBJ", localPlayerObject);
 });
