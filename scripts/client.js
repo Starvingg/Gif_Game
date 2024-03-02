@@ -70,6 +70,7 @@ const playerReady = async (player) => {
         console.log(localPlayerObject);
         setTimeout(() => {
             displayGifForRound(localPlayerObject)
+            updateRoundDisplay(currentRound)
         }, 5000);
 
     } catch (error) {
@@ -100,6 +101,7 @@ function nextRound() {
     pressed3 = false;
     pressed4 = false;
     displayGifForRound()
+    updateRoundDisplay(currentRound)
 }
 
 // function displayGifRound1(localPlayerObject) {
@@ -147,6 +149,11 @@ const gifRefresh = async () => {
     } catch (error) {
         // console.log(error);
     }
+}
+
+function updateRoundDisplay(currentRound) {
+    const roundTitleElement = document.getElementById('roundTitle');
+    roundTitleElement.textContent = `ROUND ${currentRound}`;
 }
 
 const displayCaptions = () => {  ///currently not called anywhere
