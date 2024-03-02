@@ -13,14 +13,12 @@ class gifyAPI {
         return gif; 
     }
 }
-
-const gifAPI = new gifyAPI();
-gifAPI.fetchGif();
+// const gifAPI = new gifyAPI();
+// gifAPI.fetchGif();
 
 class cacheAPI {
 
     constructor() {
-        // this.baseURL = `https://retoolapi.dev/zXytKh/giphy=`;  test api
         this.baseURL = `https://api-generator.retool.com/O5rvPz/gifgame`;
     }
 
@@ -31,7 +29,7 @@ class cacheAPI {
         console.log(cache);
         return cache; 
     }
-
+     //this edits need to create post and tweak names
     async pushData(inputID, playerInput) {
         const url = `https://api-generator.retool.com/O5rvPz/gifgame/${inputID}`;
         const response = await axios.put(url, playerInput );
@@ -39,7 +37,7 @@ class cacheAPI {
         //console.log(cache);
         return cache; 
     }
-    
+
     async pushGif(object) {
         console.log("im pushing to API");
         
@@ -55,6 +53,29 @@ class cacheAPI {
     }
 
 }
+// const cache = new cacheAPI();
+// cache.fetchCache()
 
-const cache = new cacheAPI();
-cache.fetchCache()
+class ScoresAPI {
+    constructor() {
+        this.baseURL = `https://retoolapi.dev/WW3pCW/scores`;
+    }
+
+    async fetchScores() {
+        const url = `https://retoolapi.dev/WW3pCW/scores`;
+        const response = await axios.get(url);
+        const cache = response.data;
+        console.log(cache);
+        return cache; 
+    }
+
+    async editScores(inputID, playerInput) {
+        const url = `https://retoolapi.dev/WW3pCW/scores/${inputID}`;
+        const response = await axios.put(url, playerInput );
+        const newScores = response.data;
+        console.log(newScores);
+        return newScores; 
+    }
+}
+const scores = new ScoresAPI();
+scores.fetchScores()

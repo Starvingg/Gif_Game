@@ -1,33 +1,39 @@
 const clientCache = new cacheAPI();
 const gifApi = new gifyAPI();
+const scoresCache = new ScoresAPI();
+
+let playerID
 let localPlayerObject = {};
+let scoresJustIn = {};
 let currentRound = 0;
+let pressed1 = false;
+let pressed2 = false;
+let pressed3 = false;
+let pressed4 = false;
+let pID;
 
 const form = document.querySelector('.caption__submit');
 const captionInput = document.getElementById('fname');
 const playerFormID = document.getElementById('playerFormID');
 const hostStartGameButton = document.querySelector('#startGameButton');
+const readyButton = document.querySelector('#readyButton');
 
-
-
-const readyButton = document.querySelector('#readyButton'); 
-
-document.querySelector('.formSubmission').addEventListener('submit', function(event) {
+document.querySelector('.formSubmission').addEventListener('submit', function (event) {
     event.preventDefault();
     const selectElement = document.getElementById('playerSelect');
     const selectedOption = selectElement.options[selectElement.selectedIndex].value;
-     console.log(selectedOption);
+    console.log(selectedOption);
     playerReady(selectedOption);
 });
 
-document.getElementById('round1Form').addEventListener('submit', function(event) {
+document.getElementById('round1Form').addEventListener('submit', function (event) {
     event.preventDefault();
     const inputValue = document.querySelector('input[name="comment1"]').value;
-    
+
     console.log(inputValue);
     localPlayerObject.round1.input = inputValue;
-    console.log("localPlayerOBJ",localPlayerObject); 
-    
+    console.log("localPlayerOBJ", localPlayerObject);
+
     submitAPI();
     setTimeout(() => {
         requestAnswers();
@@ -35,7 +41,7 @@ document.getElementById('round1Form').addEventListener('submit', function(event)
 });
 
 const submitAPI = async () => {
-    let playerID = localPlayerObject.id;
+    playerID = localPlayerObject.id;
     let playerApiObject = localPlayerObject;
     await clientCache.pushData(playerID, playerApiObject);
 }
@@ -57,31 +63,35 @@ const requestAnswers = async () => {
 }
 
 function updatePlayer1Button(text) {
-    document.getElementById('player1Caption').innerHTML = text;
+    document.querySelector('.player1Caption').innerHTML = text;
 }
 
 function updatePlayer2Button(text) {
-    document.getElementById('player2Caption').innerHTML = text;
+    document.querySelector('.player2Caption').innerHTML = text;
 }
 
 function updatePlayer3Button(text) {
-    document.getElementById('player3Caption').innerHTML = text;
+    document.querySelector('.player3Caption').innerHTML = text;
+}
+
+function updatePlayer4Button(text) {
+    document.querySelector('.player4Caption').innerHTML = text;
 }
 
 const playerReady = async (player) => {
     try {
         currentRound = 1;
-        let pID = player - 1;
+        pID = player - 1;
         const getObject = await clientCache.fetchCache();
         let playerProfile = getObject[pID]
         localPlayerObject = playerProfile;
         //console.log(localPlayerObject);
-        setTimeout(() => {         
+        setTimeout(() => {
             displayGifRound1(localPlayerObject)
         }, 5000);
 
     } catch (error) {
-        console.error(error); 
+        console.error(error);
     }
 }
 
@@ -97,15 +107,12 @@ const updateResults = async (id) => { //this updates the player input API on sub
         let infoArr = await clientCache.fetchCache();
         const displayResults = document.querySelector('.results-displayResults');
         displayResults.innerHTML = '';
-
-        // pass in the player number -1 to get the index. 
         let i = id - 1;
         console.log(i);
-
         console.log("we are here");
 
     } catch (error) {
-        console.error(error); 
+        console.error(error);
     }
 }
 
@@ -120,10 +127,10 @@ const gifRefresh = async () => {
 
 
         const playerObject = {
-            round1:{gifUrl: gif1, input:"", score:0},
-            round2:{gifUrl: gif2, input:"", score:0},
-            round3:{gifUrl: gif3, input:"", score:0},
-            round4:{gifUrl: gif4, input:"", score:0},
+            round1: { gifUrl: gif1, input: "", score: 0 },
+            round2: { gifUrl: gif2, input: "", score: 0 },
+            round3: { gifUrl: gif3, input: "", score: 0 },
+            round4: { gifUrl: gif4, input: "", score: 0 },
         };
 
         console.log("im here");
@@ -148,32 +155,103 @@ const displayCaptions = () => {  ///currently not called anywhere
     const pTag1 = document.createElement('p');
     pTag1.textContent = Log1;
     displayResults.appendChild(pTag1);
-    
+
     let Log2 = infoArr[i].playerInput.caption3;
     //console.log(Log2); 
     const pTag2 = document.createElement('p');
-    pTag2.textContent = Log2; 
+    pTag2.textContent = Log2;
     displayResults.appendChild(pTag2);
 
     let Log3 = infoArr[i].playerInput.caption4;
     //console.log(Log3); 
     const pTag3 = document.createElement('p');
-    pTag3.textContent = Log3; 
+    pTag3.textContent = Log3;
     displayResults.appendChild(pTag3);
 }
 
-// hostStartGameButton.addEventListener('click', () => {
-//     gifRefresh()
-//     // Needs to write to API
-// });
+// Vote Button Event Listener 
+const buttonVotePlayer1 = document.getElementById('player1Vote');
+
+buttonVotePlayer1.addEventListener('click', () => {
+    console.log('Button1 pressed');
+    let pressed1 = true;
+    voteFav(pressed1);
+    console.log(pressed1);
+});
+
+const buttonVotePlayer2 = document.getElementById('player2Vote');
+
+buttonVotePlayer2.addEventListener('click', () => {
+    console.log('Button2 pressed');
+    let pressed2 = true;
+    console.log(pressed2);
+    voteFav(pressed2);
+});
+
+const buttonVotePlayer3 = document.getElementById('player3Vote');
+
+buttonVotePlayer3.addEventListener('click', () => {
+    console.log('Button3 pressed');
+    let pressed3 = true;
+    console.log(pressed3);
+    voteFav(pressed3);
+});
+
+const buttonVotePlayer4 = document.getElementById('player3Vote');
+
+buttonVotePlayer4.addEventListener('click', () => {
+    console.log('Button4 pressed');
+    let pressed4 = true;
+    console.log(pressed4);
+    voteFav(pressed4);
+});
+let votesInLocal = {
+    player1: 0,
+    player2: 0,
+    player3: 0,
+    player4: 0,
+}
+const voteFav = async (button) => {
+    pressed1 = button
+    pressed2 = button
+    pressed3 = button
+    pressed4 = button
+
+    if (pressed1) {
+        console.log("Vote B1");
+        votesInLocal.player1++;
+        pressed1 = false;
+    } else if (pressed2) {
+        console.log("Vote B2");
+        votesInLocal.player2++;
+        pressed2 = false;
+    } else if (pressed3) {
+        console.log("Vote B3");
+        votesInLocal.player3++;
+        pressed3 = false;
+    } else if (pressed4) {
+        console.log("Vote B3");
+        votesInLocal.player4++;
+        pressed4 = false;
+    }
+    sendVoteApi()
+    console.log(votesInLocal);
+}
+
+console.log(votesInLocal);
+const sendVoteApi = async () => {
+    pID = playerID;
+    let allVotes = votesInLocal;
+    await scoresCache.editScores(pID, allVotes);
+    scoresJustIn = await scoresCache.fetchScores();
+    console.log("scores are in", scoresJustIn);
+}
 
 hostStartGameButton.addEventListener('click', (event) => {
-    event.preventDefault(); // Prevent the default behavior of refreshing the page
     gifRefresh()
-    // Your code here
 });
 
 readyButton.addEventListener('click', (event) => {
     playerReady()
-    // Needs to read
+    console.log("Local OBJ", localPlayerObject);
 });
