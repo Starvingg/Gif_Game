@@ -65,7 +65,7 @@ class ScoresAPI {
         const url = `https://retoolapi.dev/WW3pCW/scores`;
         const response = await axios.get(url);
         const cache = response.data;
-        console.log(cache);
+        console.log("fetchRecent", cache);
         return cache; 
     }
 

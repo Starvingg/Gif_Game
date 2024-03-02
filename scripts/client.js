@@ -131,12 +131,16 @@ const updateResults = async (id) => { //this updates the player input API on sub
 const gifRefresh = async () => {
     try {
         let gifSrc = await gifApi.fetchGif();
-
-        let gif1 = gifSrc[0].embed_url;
-        let gif2 = gifSrc[1].embed_url;
-        let gif3 = gifSrc[2].embed_url;
-        let gif4 = gifSrc[3].embed_url;
-
+        
+        let r1 = Math.floor(Math.random() * gifSrc.length);
+        let r2 = Math.floor(Math.random() * gifSrc.length);
+        let r3 = Math.floor(Math.random() * gifSrc.length);
+        let r4 = Math.floor(Math.random() * gifSrc.length);
+        
+        let gif1 = gifSrc[r1].embed_url;
+        let gif2 = gifSrc[r2].embed_url;
+        let gif3 = gifSrc[r3].embed_url;
+        let gif4 = gifSrc[r4].embed_url;
 
         const playerObject = {
             round1: { gifUrl: gif1, input: "", score: 0 },
@@ -312,17 +316,16 @@ const voteFav = async (button) => {
     console.log(votesInLocal);
 }
 
-console.log(votesInLocal);
+console.log("local scores data", votesInLocal);
 const sendVoteApi = async () => {
     pID = playerID;
     let allVotes = votesInLocal;
     await scoresCache.editScores(pID, allVotes);
     scoresJustIn = await scoresCache.fetchScores();
     console.log("scores are in", scoresJustIn);
-
     //move onto next round from here.
     setTimeout(() => {
-        nextRound() //needs creating
+        nextRound()
     }, 20000);
     alert("Votes Closing Soon, Do not go anywhere!")
 }
