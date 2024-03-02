@@ -10,6 +10,7 @@ let playerID;
 let localPlayerObject = {};
 let scoresJustIn = {};
 let currentRound = 0;
+console.log("Game State", currentRound);
 let pressed1 = false;
 let pressed2 = false;
 let pressed3 = false;
@@ -62,14 +63,13 @@ function updatePlayer4Button(text) {
 
 const playerReady = async (player) => {
     try {
-        currentRound = 1;
         pID = player - 1;
         const getObject = await clientCache.fetchCache();
         let playerProfile = getObject[pID]
         localPlayerObject = playerProfile;
-        //console.log(localPlayerObject);
+        console.log(localPlayerObject);
         setTimeout(() => {
-            displayGifRound1(localPlayerObject)
+            displayGifForRound(localPlayerObject)
         }, 5000);
 
     } catch (error) {
@@ -77,12 +77,37 @@ const playerReady = async (player) => {
     }
 }
 
-function displayGifRound1(localPlayerObject) {
-    let gif1URL = localPlayerObject.round1.gifUrl;
-    console.log(gif1URL);
-    const iframeRound1 = document.getElementById('round1Gif');
-    iframeRound1.src = gif1URL;
+function displayGifForRound() {
+    if (currentRound === 5) {
+        currentRound = `X`; 
+        console.log("all rounds complete");
+        return
+    } else {
+        currentRound = currentRound + 1;
+        console.log("Round =", currentRound);
+        const gifURL = localPlayerObject[`round${currentRound}`].gifUrl;
+        console.log(`Round ${currentRound} GIF URL:`, gifURL);
+        const iframe = document.getElementById('round1Gif');
+        iframe.src = gifURL;
+    }
+};
+
+function nextRound() {
+    captionSent = false;
+    voted = false;
+    pressed1 = false;
+    pressed2 = false;
+    pressed3 = false;
+    pressed4 = false;
+    displayGifForRound()
 }
+
+// function displayGifRound1(localPlayerObject) {
+//     let gif1URL = localPlayerObject.round1.gifUrl;
+//     console.log(gif1URL);
+//     const iframeRound1 = document.getElementById('round1Gif');
+//     iframeRound1.src = gif1URL;
+// }
 
 const updateResults = async (id) => { //this updates the player input API on submit
     try {
@@ -127,25 +152,29 @@ const gifRefresh = async () => {
 const displayCaptions = () => {  ///currently not called anywhere
     // this needs to be moved to a function to display on the voting page.
     let Log0 = infoArr[i].playerInput.caption1;
-    console.log(Log0);
+    console.log(playerID);
+    if (playerID === 1) return
     const pTag0 = document.createElement('p');
     pTag0.textContent = Log0;
     displayResults.appendChild(pTag0);
 
     let Log1 = infoArr[i].playerInput.caption2;
     console.log(Log1);
+    if (playerID === 2) return
     const pTag1 = document.createElement('p');
     pTag1.textContent = Log1;
     displayResults.appendChild(pTag1);
 
     let Log2 = infoArr[i].playerInput.caption3;
-    //console.log(Log2); 
+    //console.log(Log2);
+    if (playerID === 3) return 
     const pTag2 = document.createElement('p');
     pTag2.textContent = Log2;
     displayResults.appendChild(pTag2);
 
     let Log3 = infoArr[i].playerInput.caption4;
     //console.log(Log3); 
+    if (playerID === 4) return
     const pTag3 = document.createElement('p');
     pTag3.textContent = Log3;
     displayResults.appendChild(pTag3);
@@ -281,19 +310,19 @@ const sendVoteApi = async () => {
     scoresJustIn = await scoresCache.fetchScores();
     console.log("scores are in", scoresJustIn);
 
-    //move onto round 2 from here.
-    // setTimeout(() => {
-    //     startRound2() //needs creating
-    // }, timeout);
+    //move onto next round from here.
+    setTimeout(() => {
+        nextRound() //needs creating
+    }, 20000);
     alert("Votes Closing Soon, Do not go anywhere!")
 }
 
 hostStartGameButton.addEventListener('click', (event) => {
+    event.preventDefault()
     gifRefresh()
 });
 
-readyButton.addEventListener('click', (event) => {
-    playerReady()
+readyButton.addEventListener('click', () => {
     gameActive = true;
     console.log(gameActive);
     console.log("Local OBJ", localPlayerObject);
