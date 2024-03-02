@@ -182,6 +182,10 @@ document.querySelector('.formSubmission').addEventListener('submit', function (e
 
     buttonVotePlayer1.addEventListener('click', () => {
         if (!gameActive) return;
+        if (voted) {
+            alert("Only 1 vote per round!") 
+             return
+         }
         console.log('Button1 pressed');
         let pressed1 = true;
         voteFav(pressed1);
@@ -192,6 +196,10 @@ document.querySelector('.formSubmission').addEventListener('submit', function (e
     
     buttonVotePlayer2.addEventListener('click', () => {
         if (!gameActive) return;
+        if (voted) {
+            alert("Only 1 vote per round!") 
+             return
+         }
         console.log('Button2 pressed');
         let pressed2 = true;
         console.log(pressed2);
@@ -202,6 +210,10 @@ document.querySelector('.formSubmission').addEventListener('submit', function (e
     
     buttonVotePlayer3.addEventListener('click', () => {
         if (!gameActive) return;
+        if (voted) {
+            alert("Only 1 vote per round!") 
+             return
+         }
         console.log('Button3 pressed');
         let pressed3 = true;
         console.log(pressed3);
@@ -212,6 +224,10 @@ document.querySelector('.formSubmission').addEventListener('submit', function (e
     
     buttonVotePlayer4.addEventListener('click', () => {
         if (!gameActive) return;
+        if (voted) {
+            alert("Only 1 vote per round!") 
+             return
+         }
         console.log('Button4 pressed');
         let pressed4 = true;
         console.log(pressed4);
@@ -227,10 +243,6 @@ let votesInLocal = {
     player4: 0,
 }
 const voteFav = async (button) => {
-    if (voted) {
-       alert("Only 1 vote per round!") 
-        return
-    }
     pressed1 = button
     pressed2 = button
     pressed3 = button
@@ -240,18 +252,22 @@ const voteFav = async (button) => {
         console.log("Vote B1");
         votesInLocal.player1++;
         pressed1 = false;
+        voted = true;
     } else if (pressed2) {
         console.log("Vote B2");
         votesInLocal.player2++;
         pressed2 = false;
+        voted = true;
     } else if (pressed3) {
         console.log("Vote B3");
         votesInLocal.player3++;
         pressed3 = false;
+        voted = true;
     } else if (pressed4) {
-        console.log("Vote B3");
+        console.log("Vote B4");
         votesInLocal.player4++;
         pressed4 = false;
+        voted = true;
     }
     sendVoteApi()
     console.log(votesInLocal);
