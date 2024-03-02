@@ -79,9 +79,12 @@ const playerReady = async (player) => {
 }
 
 function displayGifForRound() {
-    if (currentRound === 5) {
+    if (currentRound == 5) {
         currentRound = `X`; 
         console.log("all rounds complete");
+        // winner announcement and scores
+        //starts here
+
         return
     } else {
         currentRound = currentRound + 1;
@@ -206,10 +209,10 @@ document.querySelector('.formSubmission').addEventListener('submit', function (e
         console.log(inputValue);
         localPlayerObject.round1.input = inputValue;
         console.log("localPlayerOBJ", localPlayerObject);
-    
         submitAPI();
         setTimeout(() => {
             requestAnswers();
+            document.querySelector('input[name="comment1"]').value = "";
         }, 10000);
     });
 
