@@ -80,7 +80,7 @@ const playerReady = async (player) => {
 
 function displayGifForRound() {
     if (currentRound == 5) {
-        currentRound = `X`; 
+        currentRound = `X`;
         console.log("all rounds complete");
         // winner announcement and scores
         //starts here
@@ -107,13 +107,6 @@ function nextRound() {
     updateRoundDisplay(currentRound)
 }
 
-// function displayGifRound1(localPlayerObject) {
-//     let gif1URL = localPlayerObject.round1.gifUrl;
-//     console.log(gif1URL);
-//     const iframeRound1 = document.getElementById('round1Gif');
-//     iframeRound1.src = gif1URL;
-// }
-
 const updateResults = async (id) => { //this updates the player input API on submit
     try {
         let infoArr = await clientCache.fetchCache();
@@ -131,12 +124,12 @@ const updateResults = async (id) => { //this updates the player input API on sub
 const gifRefresh = async () => {
     try {
         let gifSrc = await gifApi.fetchGif();
-        
+
         let r1 = Math.floor(Math.random() * gifSrc.length);
         let r2 = Math.floor(Math.random() * gifSrc.length);
         let r3 = Math.floor(Math.random() * gifSrc.length);
         let r4 = Math.floor(Math.random() * gifSrc.length);
-        
+
         let gif1 = gifSrc[r1].embed_url;
         let gif2 = gifSrc[r2].embed_url;
         let gif3 = gifSrc[r3].embed_url;
@@ -181,7 +174,7 @@ const displayCaptions = () => {  ///currently not called anywhere
 
     let Log2 = infoArr[i].playerInput.caption3;
     //console.log(Log2);
-    if (playerID === 3) return 
+    if (playerID === 3) return
     const pTag2 = document.createElement('p');
     pTag2.textContent = Log2;
     displayResults.appendChild(pTag2);
@@ -200,82 +193,96 @@ document.querySelector('.formSubmission').addEventListener('submit', function (e
     console.log(selectedOption);
     playerReady(selectedOption);
 });
-    // Game Button Event Listener
+// Game Button Event Listener
 
-    document.getElementById('round1Form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        if (captionSent) {
-            alert("You can only submit one time!")
+document.getElementById('round1Form').addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (captionSent) {
+        alert("You can only submit one time!")
+    }
+    if (!gameActive || captionSent) return;
+    const inputValue = document.querySelector('input[name="comment1"]').value;
+    captionSent = true;
+    console.log(inputValue);
+    localPlayerObject.round1.input = inputValue;
+    console.log("localPlayerOBJ", localPlayerObject);
+    submitAPI();
+    startCountdown(10);
+    setTimeout(() => {
+        requestAnswers();
+        document.querySelector('input[name="comment1"]').value = "";
+    }, 10000);
+});
+
+function startCountdown(duration) {
+    let timer = duration, seconds;
+    const countdownElement = document.getElementById('countdown');
+    const interval = setInterval(function () {
+        seconds = parseInt(timer % 60, 10);
+        countdownElement.textContent = seconds;
+        if (--timer < 0) {
+            clearInterval(interval);
+            countdownElement.textContent = 'Time to vote!';
         }
-        if (!gameActive || captionSent) return;
-        const inputValue = document.querySelector('input[name="comment1"]').value;
-        captionSent = true;
-        console.log(inputValue);
-        localPlayerObject.round1.input = inputValue;
-        console.log("localPlayerOBJ", localPlayerObject);
-        submitAPI();
-        setTimeout(() => {
-            requestAnswers();
-            document.querySelector('input[name="comment1"]').value = "";
-        }, 10000);
-    });
+    }, 1000);
+}
 
 
-    const buttonVotePlayer1 = document.getElementById('player1Vote');
+const buttonVotePlayer1 = document.getElementById('player1Vote');
 
-    buttonVotePlayer1.addEventListener('click', () => {
-        if (!gameActive) return;
-        if (voted) {
-            alert("Only 1 vote per round!") 
-             return
-         }
-        console.log('Button1 pressed');
-        let pressed1 = true;
-        voteFav(pressed1);
-        console.log(pressed1);
-    });
-    
-    const buttonVotePlayer2 = document.getElementById('player2Vote');
-    
-    buttonVotePlayer2.addEventListener('click', () => {
-        if (!gameActive) return;
-        if (voted) {
-            alert("Only 1 vote per round!") 
-             return
-         }
-        console.log('Button2 pressed');
-        let pressed2 = true;
-        console.log(pressed2);
-        voteFav(pressed2);
-    });
-    
-    const buttonVotePlayer3 = document.getElementById('player3Vote');
-    
-    buttonVotePlayer3.addEventListener('click', () => {
-        if (!gameActive) return;
-        if (voted) {
-            alert("Only 1 vote per round!") 
-             return
-         }
-        console.log('Button3 pressed');
-        let pressed3 = true;
-        console.log(pressed3);
-        voteFav(pressed3);
-    });
-    
-    const buttonVotePlayer4 = document.getElementById('player3Vote');
-    
-    buttonVotePlayer4.addEventListener('click', () => {
-        if (!gameActive) return;
-        if (voted) {
-            alert("Only 1 vote per round!") 
-             return
-         }
-        console.log('Button4 pressed');
-        let pressed4 = true;
-        console.log(pressed4);
-        voteFav(pressed4);
-    });
+buttonVotePlayer1.addEventListener('click', () => {
+    if (!gameActive) return;
+    if (voted) {
+        alert("Only 1 vote per round!")
+        return
+    }
+    console.log('Button1 pressed');
+    let pressed1 = true;
+    voteFav(pressed1);
+    console.log(pressed1);
+});
+
+const buttonVotePlayer2 = document.getElementById('player2Vote');
+
+buttonVotePlayer2.addEventListener('click', () => {
+    if (!gameActive) return;
+    if (voted) {
+        alert("Only 1 vote per round!")
+        return
+    }
+    console.log('Button2 pressed');
+    let pressed2 = true;
+    console.log(pressed2);
+    voteFav(pressed2);
+});
+
+const buttonVotePlayer3 = document.getElementById('player3Vote');
+
+buttonVotePlayer3.addEventListener('click', () => {
+    if (!gameActive) return;
+    if (voted) {
+        alert("Only 1 vote per round!")
+        return
+    }
+    console.log('Button3 pressed');
+    let pressed3 = true;
+    console.log(pressed3);
+    voteFav(pressed3);
+});
+
+const buttonVotePlayer4 = document.getElementById('player3Vote');
+
+buttonVotePlayer4.addEventListener('click', () => {
+    if (!gameActive) return;
+    if (voted) {
+        alert("Only 1 vote per round!")
+        return
+    }
+    console.log('Button4 pressed');
+    let pressed4 = true;
+    console.log(pressed4);
+    voteFav(pressed4);
+});
 
 
 
@@ -312,8 +319,14 @@ const voteFav = async (button) => {
         pressed4 = false;
         voted = true;
     }
-    sendVoteApi()
-    console.log(votesInLocal);
+    setTimeout(() => {
+        nextRound()
+    }, 20000);
+    alert("Votes Closing Soon, Do not go anywhere!")
+    console.log("local scores", votesInLocal);
+    if (currentRound === 4) {
+        sendVoteApi()
+    }
 }
 
 console.log("local scores data", votesInLocal);
@@ -322,12 +335,7 @@ const sendVoteApi = async () => {
     let allVotes = votesInLocal;
     await scoresCache.editScores(pID, allVotes);
     scoresJustIn = await scoresCache.fetchScores();
-    console.log("scores are in", scoresJustIn);
-    //move onto next round from here.
-    setTimeout(() => {
-        nextRound()
-    }, 20000);
-    alert("Votes Closing Soon, Do not go anywhere!")
+    console.log("the final scores are in", scoresJustIn);
 }
 
 hostStartGameButton.addEventListener('click', (event) => {

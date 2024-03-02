@@ -6,7 +6,7 @@ class gifyAPI {
     }
 
     async fetchGif() {
-        const url = `https://api.giphy.com/v1/gifs/trending?api_key=Yci8EviZ0OXi2u79t2iadTY4Ta1EiZax&limit=4&offset=0&rating=g&bundle=messaging_non_clips`;
+        const url = `https://api.giphy.com/v1/gifs/trending?api_key=Yci8EviZ0OXi2u79t2iadTY4Ta1EiZax&limit=40&offset=0&rating=g&bundle=messaging_non_clips`;
         const response = await axios.get(url);
         const gif = response.data.data;
         console.log(gif);
