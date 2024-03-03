@@ -135,7 +135,7 @@ const gifRefresh = async () => {
         console.log("upload complete");
 
     } catch (error) {
-        console.log(error);
+        // console.log(error);
     }
 }
 
@@ -286,9 +286,6 @@ console.log("local scores data", votesInLocal);
 const sendVoteApi = async () => {
     pID = playerID;
     let allVotes = votesInLocal;
-    //need to reset api scores on game start
-    // if less than 4 people play old players score be
-    // into the final table.
     await scoresCache.editScores(pID, allVotes);
     scoresJustIn = await scoresCache.fetchScores();
     console.log("the final scores are in", scoresJustIn);
@@ -296,6 +293,18 @@ const sendVoteApi = async () => {
     // Displaying the winner and a image (auto generated)
     // with scores for players in table order
 }
+
+const resetScoreCache = async () => {
+    console.log(votesInLocal);
+    for (let pIndex = 1; pIndex <= 4; pIndex++) {
+        await scoresCache.editScores(pIndex, votesInLocal);
+        console.log(`Scores reset for player ${pIndex}`);
+    }
+
+    scoresJustIn = await scoresCache.fetchScores();
+    console.log(scoresJustIn);
+}
+
 
 hostStartGameButton.addEventListener('click', (event) => {
     event.preventDefault()
@@ -306,4 +315,5 @@ readyButton.addEventListener('click', () => {
     gameActive = true;
     console.log(gameActive);
     console.log("Local OBJ", localPlayerObject);
+    resetScoreCache()
 });
