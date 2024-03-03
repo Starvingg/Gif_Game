@@ -10,7 +10,9 @@ let playerID;
 let localPlayerObject = {};
 let scoresJustIn = {};
 let currentRound = 0;
+
 console.log("Game State", currentRound);
+
 let pressed1;
 let pressed2;
 let pressed3;
@@ -107,20 +109,6 @@ function nextRound() {
     updateRoundDisplay(currentRound)
 }
 
-const updateResults = async (id) => { //this updates the player input API on submit
-    try {
-        let infoArr = await clientCache.fetchCache();
-        const displayResults = document.querySelector('.results-displayResults');
-        displayResults.innerHTML = '';
-        let i = id - 1;
-        console.log(i);
-        console.log("we are here");
-
-    } catch (error) {
-        console.error(error);
-    }
-}
-
 const gifRefresh = async () => {
     try {
         let gifSrc = await gifApi.fetchGif();
@@ -147,7 +135,7 @@ const gifRefresh = async () => {
         console.log("upload complete");
 
     } catch (error) {
-        // console.log(error);
+        console.log(error);
     }
 }
 
@@ -156,36 +144,6 @@ function updateRoundDisplay(currentRound) {
     roundTitleElement.textContent = `ROUND ${currentRound}`;
 }
 
-const displayCaptions = () => {  ///currently not called anywhere
-    // this needs to be moved to a function to display on the voting page.
-    let Log0 = infoArr[i].playerInput.caption1;
-    console.log(playerID);
-    if (playerID === 1) return
-    const pTag0 = document.createElement('p');
-    pTag0.textContent = Log0;
-    displayResults.appendChild(pTag0);
-
-    let Log1 = infoArr[i].playerInput.caption2;
-    console.log(Log1);
-    if (playerID === 2) return
-    const pTag1 = document.createElement('p');
-    pTag1.textContent = Log1;
-    displayResults.appendChild(pTag1);
-
-    let Log2 = infoArr[i].playerInput.caption3;
-    //console.log(Log2);
-    if (playerID === 3) return
-    const pTag2 = document.createElement('p');
-    pTag2.textContent = Log2;
-    displayResults.appendChild(pTag2);
-
-    let Log3 = infoArr[i].playerInput.caption4;
-    //console.log(Log3); 
-    if (playerID === 4) return
-    const pTag3 = document.createElement('p');
-    pTag3.textContent = Log3;
-    displayResults.appendChild(pTag3);
-}
 document.querySelector('.formSubmission').addEventListener('submit', function (event) {
     event.preventDefault();
     const selectElement = document.getElementById('playerSelect');
@@ -193,7 +151,6 @@ document.querySelector('.formSubmission').addEventListener('submit', function (e
     console.log(selectedOption);
     playerReady(selectedOption);
 });
-// Game Button Event Listener
 
 document.getElementById('round1Form').addEventListener('submit', function (event) {
     event.preventDefault();
@@ -226,7 +183,6 @@ function startCountdown(duration) {
         }
     }, 1000);
 }
-
 
 const buttonVotePlayer1 = document.getElementById('player1Vote');
 
@@ -284,8 +240,6 @@ buttonVotePlayer4.addEventListener('click', () => {
     voteFav(pressed4);
 });
 
-
-
 let votesInLocal = {
     player1: 0,
     player2: 0,
@@ -332,6 +286,9 @@ console.log("local scores data", votesInLocal);
 const sendVoteApi = async () => {
     pID = playerID;
     let allVotes = votesInLocal;
+    //need to reset api scores on game start
+    // if less than 4 people play old players score be
+    // into the final table.
     await scoresCache.editScores(pID, allVotes);
     scoresJustIn = await scoresCache.fetchScores();
     console.log("the final scores are in", scoresJustIn);
