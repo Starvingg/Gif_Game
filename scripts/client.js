@@ -11,10 +11,10 @@ let localPlayerObject = {};
 let scoresJustIn = {};
 let currentRound = 0;
 console.log("Game State", currentRound);
-let pressed1 = false;
-let pressed2 = false;
-let pressed3 = false;
-let pressed4 = false;
+let pressed1;
+let pressed2;
+let pressed3;
+let pressed4;
 let pID;
 
 const form = document.querySelector('.caption__submit');
@@ -237,7 +237,7 @@ buttonVotePlayer1.addEventListener('click', () => {
         return
     }
     console.log('Button1 pressed');
-    let pressed1 = true;
+    let pressed1 = 1;
     voteFav(pressed1);
     console.log(pressed1);
 });
@@ -251,7 +251,7 @@ buttonVotePlayer2.addEventListener('click', () => {
         return
     }
     console.log('Button2 pressed');
-    let pressed2 = true;
+    pressed2 = 2;
     console.log(pressed2);
     voteFav(pressed2);
 });
@@ -265,7 +265,7 @@ buttonVotePlayer3.addEventListener('click', () => {
         return
     }
     console.log('Button3 pressed');
-    let pressed3 = true;
+    pressed3 = 3;
     console.log(pressed3);
     voteFav(pressed3);
 });
@@ -279,7 +279,7 @@ buttonVotePlayer4.addEventListener('click', () => {
         return
     }
     console.log('Button4 pressed');
-    let pressed4 = true;
+    pressed4 = 4;
     console.log(pressed4);
     voteFav(pressed4);
 });
@@ -293,35 +293,28 @@ let votesInLocal = {
     player4: 0,
 }
 const voteFav = async (button) => {
-    pressed1 = button
-    pressed2 = button
-    pressed3 = button
-    pressed4 = button
-    
+    let pressed = button;
     if (currentRound === 4) {
         sendVoteApi()
         console.log("end of game");
         return
     }
-
-    //each button registering as B1 needs looking @
-
-    if (pressed1) {
+    if (pressed == 1) {
         console.log("Vote B1");
         votesInLocal.player1++;
         pressed1 = false;
         voted = true;
-    } else if (pressed2) {
+    } else if (pressed == 2) {
         console.log("Vote B2");
         votesInLocal.player2++;
         pressed2 = false;
         voted = true;
-    } else if (pressed3) {
+    } else if (pressed == 3) {
         console.log("Vote B3");
         votesInLocal.player3++;
         pressed3 = false;
         voted = true;
-    } else if (pressed4) {
+    } else if (pressed == 4) {
         console.log("Vote B4");
         votesInLocal.player4++;
         pressed4 = false;
