@@ -242,8 +242,8 @@ buttonVotePlayer4.addEventListener('click', () => {
 });
 
 let votesInLocal = {
-    player1: 1, //for testing
-    player2: 2,
+    player1: 0, //for testing
+    player2: 0,
     player3: 0,
     player4: 0,
 }
