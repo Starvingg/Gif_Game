@@ -249,7 +249,7 @@ let votesInLocal = {
 }
 const voteFav = async (button) => {
     let pressed = button;
-    if (currentRound === 1) {
+    if (currentRound === 5) {
         sendVoteApi()
         console.log("end of game");
         return
