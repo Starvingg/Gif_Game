@@ -84,6 +84,7 @@ function displayGifForRound() {
     if (currentRound == 5) {
         currentRound = `X`;
         console.log("all rounds complete");
+        alert("Winner to be announced Shortly!")
         // winner announcement and scores
         //starts here
 
@@ -164,11 +165,11 @@ document.getElementById('round1Form').addEventListener('submit', function (event
     localPlayerObject.round1.input = inputValue;
     console.log("localPlayerOBJ", localPlayerObject);
     submitAPI();
-    startCountdown(10);
+    startCountdown(20);
     setTimeout(() => {
         requestAnswers();
         document.querySelector('input[name="comment1"]').value = "";
-    }, 10000);
+    }, 20000);
 });
 
 function startCountdown(duration) {
@@ -241,14 +242,14 @@ buttonVotePlayer4.addEventListener('click', () => {
 });
 
 let votesInLocal = {
-    player1: 0,
-    player2: 0,
+    player1: 1, //for testing
+    player2: 2,
     player3: 0,
     player4: 0,
 }
 const voteFav = async (button) => {
     let pressed = button;
-    if (currentRound === 4) {
+    if (currentRound === 1) {
         sendVoteApi()
         console.log("end of game");
         return
@@ -276,7 +277,7 @@ const voteFav = async (button) => {
     }
     setTimeout(() => {
         nextRound()
-    }, 10000);
+    }, 20000);
     alert("Votes Closing Soon, Do not go anywhere!")
     console.log("local scores", votesInLocal);
 }
@@ -287,11 +288,27 @@ const sendVoteApi = async () => {
     pID = playerID;
     let allVotes = votesInLocal;
     await scoresCache.editScores(pID, allVotes);
-    scoresJustIn = await scoresCache.fetchScores();
-    console.log("the final scores are in", scoresJustIn);
-    // Move onto calculating the combine scores
-    // Displaying the winner and a image (auto generated)
-    // with scores for players in table order
+    alert("The Votes are in and being counted");
+
+    setTimeout(async () => {
+        scoresJustIn = await scoresCache.fetchScores();
+        console.log("the final scores are in", scoresJustIn);
+        // Move onto calculating the combine scores
+        // Displaying the winner and a image (auto generated)
+        // with scores for players in table order
+        let player1 = scoresJustIn[0];
+        console.log(player1);
+        let player2 = scoresJustIn[1];
+        console.log(player2);
+        let player3 = scoresJustIn[2];
+        console.log(player3);
+        let player4 = scoresJustIn[3];
+        console.log(player4);
+    }, 20000);
+};
+
+const finalScores = async () => {
+    console.log("how we gonna add these up?", scoresJustIn);
 }
 
 const resetScoreCache = async () => {
@@ -300,11 +317,9 @@ const resetScoreCache = async () => {
         await scoresCache.editScores(pIndex, votesInLocal);
         console.log(`Scores reset for player ${pIndex}`);
     }
-
     scoresJustIn = await scoresCache.fetchScores();
     console.log(scoresJustIn);
 }
-
 
 hostStartGameButton.addEventListener('click', (event) => {
     event.preventDefault()
