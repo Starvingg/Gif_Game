@@ -34,6 +34,7 @@ const submitAPI = async () => {
 const requestAnswers = async () => {
     let infoArr = await clientCache.fetchCache();
     console.log("your answer are here", infoArr);
+    
     let p1Input = infoArr[0].round1.input;
     let p2Input = infoArr[1].round1.input;
     let p3Input = infoArr[2].round1.input;
@@ -162,6 +163,7 @@ document.getElementById('round1Form').addEventListener('submit', function (event
     const inputValue = document.querySelector('input[name="comment1"]').value;
     captionSent = true;
     console.log(inputValue);
+    //need to pass in rounds too (only updating round 1 on API)
     localPlayerObject.round1.input = inputValue;
     console.log("localPlayerOBJ", localPlayerObject);
     submitAPI();
