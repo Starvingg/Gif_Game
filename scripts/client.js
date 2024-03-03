@@ -297,6 +297,14 @@ const voteFav = async (button) => {
     pressed2 = button
     pressed3 = button
     pressed4 = button
+    
+    if (currentRound === 4) {
+        sendVoteApi()
+        console.log("end of game");
+        return
+    }
+
+    //each button registering as B1 needs looking @
 
     if (pressed1) {
         console.log("Vote B1");
@@ -321,21 +329,22 @@ const voteFav = async (button) => {
     }
     setTimeout(() => {
         nextRound()
-    }, 20000);
+    }, 10000);
     alert("Votes Closing Soon, Do not go anywhere!")
     console.log("local scores", votesInLocal);
-    if (currentRound === 4) {
-        sendVoteApi()
-    }
 }
 
 console.log("local scores data", votesInLocal);
+
 const sendVoteApi = async () => {
     pID = playerID;
     let allVotes = votesInLocal;
     await scoresCache.editScores(pID, allVotes);
     scoresJustIn = await scoresCache.fetchScores();
     console.log("the final scores are in", scoresJustIn);
+    // Move onto calculating the combine scores
+    // Displaying the winner and a image (auto generated)
+    // with scores for players in table order
 }
 
 hostStartGameButton.addEventListener('click', (event) => {
