@@ -1,24 +1,77 @@
-
-
-html,
-body {
-    padding: 0px;
-    margin: 0px;
-    font-family: Arial, Helvetica, sans-serif;
+* {
     box-sizing: border-box;
+    color: #FEF77B;
+    font-family: "Passero One", 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+    /* Center aligns text and inline elements like images */
 }
 
+body {
+    background: linear-gradient(to right,
+            #E260E5,
+            black);
+    /* Light gradient */
+    color: #333;
+    line-height: 1.6;
+}
 
+button {
+    background-color: #be1afa;
+    /* Matching the header/title background color */
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: 3px groove black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    display: block;
+    /* Ensure the button is block-level for centering */
+    margin: 20px auto;
+    /* Center the button and add spacing */
 
-.nav{
+    &:hover {
+        background-color: #004094;
+        /* Slightly darker shade for hover effect */
+    }
+}
+
+.button-style {
+    display: inline-block;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+//  === NAVIGATION ===
+.nav {
     display: flex;
     background-color: rgb(61, 59, 59);
     height: 4vw;
     justify-content: space-between;
 
+    &__logo {
+        height: 20rem;
+        padding-top: 3rem;
+    }
+
     &__sub {
         display: flex;
         margin-right: 2vw;
+    }
+
+    &__title {
+        font-size: 2rem;
+        color: white;
+        margin-top: 0rem;
+        margin-bottom: 1rem;
     }
 
     &__bar {
@@ -39,15 +92,15 @@ body {
             margin-left: 2vw;
         }
     }
-
-
 }
 
+// === MAIN ===
+// Hero
 .hero {
-    width: 100%;
-    height: 40vw;   
+    width: 100vw;
+    height: 100vh;
     background-color: antiquewhite;
-    margin: 0px; 
+    margin: 0px;
     text-align: center;
 
     &__heading {
@@ -55,16 +108,276 @@ body {
     }
 }
 
+#initializeGameButton {
+    font-family: 'Passero One', cursive;
+    background-color: #be1afa;
+    transition: transform 0.3s ease;
+    color: white;
 
-.results {
-
-    &-displayResults{
-        border: 2px solid black;
-
+    &:hover {
+        background-color: #004094;
+        /* Slightly darker shade for hover effect */
     }
 
 }
 
+// Need to create function for Instructions Button
+#instructionsButton {
+    display: none;
+}
+
+.instructions {
+    color: white;
+    width: 200px;
+}
+
+// Select Player
+.formSubmission {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem 0;
+    gap: 1rem;
+}
+
+.comment-wrapper {
+    display: flex;
+    justify-content: center;
+}
+
+.gif {
+    max-width: 20rem;
+    max-height: 20rem;
+    height: 100%;
+    border-radius: 1rem;
+
+    &__container {
+        border: 5px groove #E9FDFF;
+        margin: 1rem auto 2rem auto;
+        padding: 0 1rem;
+        width: 100%;
+        max-width: 30rem;
+        border-radius: 80px;
+        box-shadow: 10px 10px rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.6);
+    }
+
+    & img {
+        width: auto;
+        height: auto;
+        border-radius: 5px;
+        box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+        display: block;
+        /* Makes img a block-level element */
+        margin: 0 auto;
+        /* Centers the image */
+        margin-bottom: 0.5rem;
+        /* Adds padding between the GIF and the comment label */
+        object-fit: contain;
+        overflow: none;
+    }
+}
+
 .iFrame {
-    max-width: 500px;
+    max-width: 300px;
+    max-width: 100%;
+    height: 19rem;
+}
+
+input {
+    width: 80%;
+    height: 3rem;
+    min-width: 7.5rem;
+    text-align: left;
+    padding: 0 0.5rem;
+}
+
+.input__text {
+    width: 18rem;
+    height: 2rem;
+    color: black;
+    font-weight: bold;
+}
+
+label {
+    display: block;
+    margin-bottom: 0rem;
+    font-weight: bold;
+    /* Makes the label text bold */
+}
+
+.landing {
+
+    &-page {
+        background-color: rgba(0, 0, 0, 0.8);
+        color: #ffffff;
+        padding-bottom: 1rem;
+
+        &__img {
+            width: 100vw;
+            height: 100%;
+            object-fit: contain;
+            object-position: top;
+            position: relative;
+
+            &::after {
+                content: "";
+                display: block;
+                width: 100%;
+                height: 100%;
+                background-color: black;
+                position: absolute;
+                top: 0;
+                left: 0;
+            }
+        }
+
+        &__paragraph {
+            font-size: 24px;
+            font-family: 'Passero One', cursive;
+            max-width: 500px;
+            display: inline-block;
+            padding: 1rem;
+        }
+    }
+}
+
+#landing-page__init-game:hover {
+    transform: scale(1.1);
+}
+
+.player {
+
+    &__caption {
+        display: flex;
+        max-width: 50%;
+    }
+
+    &name-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 2rem;
+        padding: 2rem;
+        margin-bottom: 20px;
+    }
+}
+
+#playerSelect>option {
+    color: black;
+}
+
+.results {
+    padding: 1rem 0;
+
+    &__winner {
+        font-size: 3rem;
+        padding: 0;
+
+        &--player {
+            font-size: 4rem;
+            padding-bottom: 2rem;
+        }
+    }
+}
+
+#round1Gif {
+    width: 100%;
+    border-radius: 1rem;
+}
+
+#round1Form {
+    padding-top: 1rem;
+}
+
+#roundTitle,
+h3 {
+    padding: 1rem 0;
+    width: 80%;
+    margin: auto;
+}
+
+section p {
+    font-weight: bold;
+    /* Makes the instructions bold */
+}
+
+select {
+    display: inline-block;
+    /* Adjusted for inline display */
+    max-width: 250px;
+    /* Sets the maximum width of select dropdown */
+    padding: 10px;
+    margin-top: 0.5rem;
+    /* Adds a little space above the select dropdown */
+    font-size: 16px;
+    border: 2px solid #ccc;
+    /* Slight border added */
+    border-radius: 5px;
+    width: 100%;
+    /* Ensures the select dropdown expands to max-width */
+    margin: auto;
+    color: black;
+}
+
+.vote {
+
+    &__player {
+        width: 80%;
+    }
+
+    &__results {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background: url('../assets/GifBack.jpg');
+        background-position: center;
+        background-size: contain;
+        width: 100%;
+        height: 20rem;
+
+        &-btn {
+            border-color:#FEF77B;
+            background-color: #E9FDFF;
+            color: black;
+            box-shadow: 0 0 30px black;
+        }
+    }
+}
+
+//  === FOOTER ===
+
+.footer {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    margin-top: 10rem;
+
+    &__btn:hover {
+        transform: scale(1.1);
+    }
+
+    &__github {
+
+        &-container {
+            display: flex;
+            justify-content: center;
+        }
+
+        &-icon {
+            font-size: 36px;
+            color: white;
+        }
+
+        &-text {
+            font-size: 1.5rem;
+            color: white;
+            padding-right: 0.5rem;
+        }
+    }
+}
+
+#footer__btn {
+    font-family: 'Passero One', cursive;
+    background-color: #be1afa;
+    transition: transform 0.3s ease;
 }
