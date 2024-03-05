@@ -16,22 +16,24 @@
 
 <body>
   <header class="landing-page">
-    <img src="./_9d31fa5f-2af9-4bd6-be8e-556a1a471a15.jpg" class="landing-page__img" alt="" />
+    <img src="./assets/logoHero.jpg" class="landing-page__img" alt="hero for the what the gif?! game" />
     <p class="landing-page__paragraph">
       Welcome to What The GIF?! Your goal is to come up with the funniest
       caption for a series of GIFs. Submit your captions, vote on your
       favorites, and may the wittiest player win!"
     </p>
+    <button id="instructionsButton">INSTRUCTIONS</button>
     <button id="initializeGameButton">ENTER GAME</button>
   </header>
-  <section>
+  <!-- <section> NAV BAR
     <nav class="nav">
       <div class="nav__img-container">
       </div>
-  </section>
+  </section> -->
 
   <section>
     <form class="formSubmission">
+      <button id="startGameButton" type="submit">Host Start Game</button>
       <div class="player-name-container">
         <label for="playerSelect">Select Player:</label>
         <select id="playerSelect">
@@ -40,42 +42,41 @@
           <option value="3">Player 3</option>
           <option value="4">Player 4</option>
         </select>
-    </div>
-    <button id="startGameButton" type="submit">Host Start Game</button>
-    <button id="readyButton" type="submit">Ready</button>
-
-</form>
-</section>
+      </div>
+      <button id="readyButton" type="submit">Ready!</button>
+    </form>
+  </section>
 
   <main>
     <section class="gif__container">
-        <section class="gif-round">
-          <h3 id="roundTitle">Ready Player?</h3>
-          <div id="countdown"></div>
-          <iframe id="round1Gif" class="gif" src="">
-          </iframe>
-        </section>
-        <form id="round1Form">
-        <input type="text" placeholder="Enter your best caption" name="comment1" style="color: black;" />
-          <button type="submit" class="caption__submit">SUBMIT</button>
-        </form>
+      <section class="gif-round">
+        <h3 id="roundTitle">Round 1</h3>
+        <div id="countdown"></div>
+        <iframe id="round1Gif" class="gif" src="">
+        </iframe>
       </section>
+      <form id="round1Form">
+        <input type="text" placeholder="Enter your best caption" name="comment1" style="color: black;" />
+        <button type="submit" class="caption__submit">SUBMIT</button>
+      </form>
+    </section>
     <!-- Player Voting: used for each round -->
     <section class="gif__container">
       <h3>VOTE FOR YOUR FAVORITE</h3>
       <div id="countdown"></div>
-
+      <iframe id="round1Gif" class="gif" src="">
+      </iframe>
       <section class="vote">
         <form>
-            <div class="player__captions">
-              <button type="button" id="player1Vote" class="vote__player player1Caption">Player 1 Caption</button>
-              <button type="button" id="player2Vote" class="vote__player player2Caption">Player 2 Caption</button>
-              <button type="button" id="player3Vote" class="vote__player player3Caption">Player 3 Caption</button>
-              <button type="button" id="player4Vote" class="vote__player player4Caption">Player 4 Caption</button>
-            </div>
+          <div class="player__captions">
+            <button type="button" id="player1Vote" class="vote__player player1Caption">Player 1 Caption</button>
+            <button type="button" id="player2Vote" class="vote__player player2Caption">Player 2 Caption</button>
+            <button type="button" id="player3Vote" class="vote__player player3Caption">Player 3 Caption</button>
+            <button type="button" id="player4Vote" class="vote__player player4Caption">Player 4 Caption</button>
+          </div>
         </form>
       </section>
-      
+
       <!-- Button will be visible once we cycle through all 3 rounds -->
     </section>
     <div class="vote__results">
