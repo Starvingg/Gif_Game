@@ -16,6 +16,7 @@ body {
 }
 
 button {
+  min-width: 150px;
   background-color: #be1afa;
   /* Matching the header/title background color */
   color: white;
@@ -84,6 +85,30 @@ button:hover {
   margin-left: 2vw;
 }
 
+.audio__note {
+  position: fixed;
+  font-size: 1.5rem;
+  text-align: left;
+  z-index: 40;
+  right: 6rem;
+  top: 5px;
+}
+.audio__player {
+  background-color: #E260E5;
+  opacity: 50%;
+  color: white;
+  max-width: 7rem;
+  max-height: 3rem;
+  border: 2px solid #E260E5;
+  border-radius: 40%;
+  box-shadow: 0 0 10px black;
+  margin: 0.5rem 0.5rem 0 0;
+  position: fixed;
+  top: 5px;
+  right: 0;
+  z-index: 30;
+}
+
 .hero {
   width: 100vw;
   height: 100vh;
@@ -106,13 +131,10 @@ button:hover {
   /* Slightly darker shade for hover effect */
 }
 
-#instructionsButton {
-  display: none;
-}
-
-.instructions {
-  color: white;
-  width: 200px;
+#instructionsButton, #initializeGameButton {
+  margin: 0;
+  background-color: rgba(190, 26, 250, 0.5);
+  border-color: #FEF77B;
 }
 
 .formSubmission {
@@ -128,7 +150,7 @@ button:hover {
 }
 
 .gif {
-  max-width: 20rem;
+  max-width: 18rem;
   max-height: 20rem;
   height: 100%;
   border-radius: 1rem;
@@ -159,12 +181,6 @@ button:hover {
   overflow: none;
 }
 
-.iFrame {
-  max-width: 300px;
-  max-width: 100%;
-  height: 19rem;
-}
-
 input {
   width: 80%;
   height: 3rem;
@@ -187,36 +203,47 @@ label {
   /* Makes the label text bold */
 }
 
-.landing-page {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: #ffffff;
-  padding-bottom: 1rem;
+.landing__buttons {
+  display: flex;
+  position: relative;
+  justify-content: center;
+  bottom: 5rem;
+  z-index: 30;
+  gap: 1rem;
+  padding: 0 2rem;
 }
-.landing-page__img {
+.landing-page {
+  color: #ffffff;
   width: 100vw;
   height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+}
+.landing-page__img {
+  width: 100%;
+  height: 100%;
+  max-height: 98vh;
   -o-object-fit: contain;
      object-fit: contain;
   -o-object-position: top;
      object-position: top;
-  position: relative;
 }
-.landing-page__img::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  background-color: black;
+.landing-page__overlay {
+  background: linear-gradient(rgba(0, 0, 0, 0) 50%, black), rgba(0, 0, 0, 0) 10%;
+  z-index: 20;
   position: absolute;
-  top: 0;
-  left: 0;
+  width: 100vw;
+  max-height: 100vw;
+  height: 100%;
+  max-width: 100%;
 }
 .landing-page__paragraph {
   font-size: 24px;
   font-family: "Passero One", cursive;
-  max-width: 500px;
-  display: inline-block;
+  max-width: 100%;
   padding: 1rem;
+  position: absolute;
+  top: 0;
 }
 
 #landing-page__init-game:hover {
@@ -300,7 +327,7 @@ select {
   align-items: center;
   background: url("../assets/GifBack.jpg");
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   width: 100%;
   height: 20rem;
 }

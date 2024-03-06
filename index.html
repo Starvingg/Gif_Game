@@ -11,19 +11,21 @@
   <script defer src="https://unpkg.com/axios/dist/axios.min.js"></script>
   <script defer src="./scripts/api.js"></script>
   <script defer src="./scripts/client.js"></script>
+  <script defer src="./scripts/landing.js"></script>
   <title>WHAT THE GIF?!</title>
 </head>
 
 <body>
   <header class="landing-page">
+    <p class="audio__note">🎵</p>
+    <audio controls class="audio__player" src="./assets/Music/AGST_Soon.mp3"></audio>
+    <div class="landing-page__overlay"></div>
     <img src="./assets/logoHero.jpg" class="landing-page__img" alt="hero for the what the gif?! game" />
-    <p class="landing-page__paragraph">
-      Welcome to What The GIF?! Your goal is to come up with the funniest
-      caption for a series of GIFs. Submit your captions, vote on your
-      favorites, and may the wittiest player win!"
-    </p>
-    <button id="instructionsButton">INSTRUCTIONS</button>
-    <button id="initializeGameButton">ENTER GAME</button>
+    <div class="land-page__img-overlay"></div>
+    <div class="landing__buttons">
+      <button id="instructionsButton">INSTRUCTIONS</button>
+      <button id="initializeGameButton">ENTER GAME</button>
+    </div>
   </header>
   <!-- <section> NAV BAR
     <nav class="nav">
@@ -90,7 +92,7 @@
         <!-- Vote Results: used for each round -->
         <div class="gif-round__card">
           <h4 class="results__winner">WINNER!!</h4>
-          <iframe class="gif" src=""></iframe>
+          <iframe id="round1Gif" class="gif" src=""></iframe>
           <p class="results__caption">Enter winning caption here</p>
           <div class="gif-round__points">
           </div>
