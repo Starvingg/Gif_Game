@@ -363,15 +363,21 @@ select {
         align-items: center;
         background: url('../assets/GifBack.jpg');
         background-position: center;
-        background-size: cover;
+        background-size: contain;
         width: 100%;
         height: 20rem;
+        margin: auto;
 
         &-btn {
-            border-color: #FEF77B;
+            border: 5px solid #FEF77B;
             background-color: #E9FDFF;
             color: black;
-            box-shadow: 0 0 30px black;
+            box-shadow: 5px 5px 8px #FEF77B;
+
+            &:hover {
+                background-color: #FEF77B;
+                
+            }
         }
     }
 }
@@ -382,7 +388,7 @@ select {
     background-color: rgba(0, 0, 0, 0.6);
     padding-top: 1rem;
     padding-bottom: 0.5rem;
-    margin-top: 10rem;
+    margin-top: 3rem;
 
     &__btn:hover {
         transform: scale(1.1);
